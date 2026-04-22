@@ -39,11 +39,9 @@ export default function Hero() {
 
             {/* Headline */}
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.1] mb-6">
-              Experience
+              เสียงระดับพรีเมียม
               <br />
-              <span className="gradient-text">Pure Sound</span>
-              <br />
-              Like Never Before
+              <span className="gradient-text">ที่คุณต้องได้ยิน</span>
             </h1>
 
             <p className="text-lg sm:text-xl text-white/50 max-w-xl mb-8 leading-relaxed font-light">

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 
 const plans = [
@@ -67,6 +68,7 @@ const plans = [
 
 export default function Pricing() {
   const ref = useScrollReveal()
+  const [order, setOrder] = useState(null)
 
   return (
     <section id="pricing" className="py-20 md:py-32 relative" ref={ref}>
@@ -130,6 +132,7 @@ export default function Pricing() {
 
               {/* CTA Button */}
               <button
+                onClick={() => setOrder({ name: plan.name, price: plan.price })}
                 className={`w-full py-3.5 rounded-2xl font-semibold text-sm transition-all duration-300 mb-8 ${
                   plan.popular
                     ? 'btn-glow bg-gradient-to-r from-primary to-accent text-white hover:shadow-xl hover:shadow-primary/25 hover:scale-[1.02]'
@@ -174,6 +177,51 @@ export default function Pricing() {
           </div>
         </div>
       </div>
+
+      {/* Order Success Modal */}
+      {order && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          onClick={() => setOrder(null)}
+        >
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
+          <div
+            className="relative glass-card-strong rounded-3xl p-8 max-w-md w-full text-center"
+            style={{
+              background: 'linear-gradient(135deg, rgba(99,102,241,0.2), rgba(168,85,247,0.2))',
+              border: '1px solid rgba(99,102,241,0.4)',
+              animation: 'modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Checkmark */}
+            <div className="mx-auto w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mb-5">
+              <svg className="w-8 h-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+
+            <h3 className="font-display text-2xl font-bold text-white mb-2">
+              สั่งซื้อสำเร็จ!
+            </h3>
+            <p className="text-white/60 text-sm mb-4">
+              ขอบคุณที่เลือก LUXE Audio
+            </p>
+
+            <div className="glass-card rounded-2xl p-4 mb-6">
+              <p className="text-white font-display font-bold text-lg">{order.name}</p>
+              <p className="text-primary-light font-display font-extrabold text-2xl mt-1">{order.price}</p>
+            </div>
+
+            <button
+              onClick={() => setOrder(null)}
+              className="btn-glow bg-gradient-to-r from-primary to-accent text-white px-8 py-3 font-semibold rounded-2xl hover:shadow-xl hover:shadow-primary/25 hover:scale-[1.02] transition-all duration-300"
+            >
+              ปิด
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
