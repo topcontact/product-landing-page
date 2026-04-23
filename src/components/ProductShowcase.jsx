@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 
 const products = [
@@ -35,6 +36,12 @@ const products = [
 
 export default function ProductShowcase() {
   const ref = useScrollReveal()
+  const [notification, setNotification] = useState(null)
+
+  const handleAddToCart = (productName) => {
+    setNotification(`${productName} added to cart!`)
+    setTimeout(() => setNotification(null), 2000)
+  }
 
   return (
     <section id="showcase" className="py-20 md:py-32 relative" ref={ref}>
@@ -43,6 +50,13 @@ export default function ProductShowcase() {
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[100px]" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        {/* Notification */}
+        {notification && (
+          <div className="fixed top-20 right-4 bg-primary text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-bounce">
+            {notification}
+          </div>
+        )}
+
         {/* Section Header */}
         <div className="text-center mb-16 reveal">
           <span className="inline-block text-primary-light text-xs font-semibold tracking-[0.2em] uppercase mb-4 glass-card rounded-full px-4 py-1.5">
@@ -129,7 +143,10 @@ export default function ProductShowcase() {
                       {product.originalPrice}
                     </span>
                   </div>
-                  <button className="w-10 h-10 rounded-xl bg-gradient-to-r from-primary to-accent flex items-center justify-center text-white hover:shadow-lg hover:shadow-primary/25 transition-all duration-300">
+                  <button
+                    onClick={() => handleAddToCart(product.name)}
+                    className="w-10 h-10 rounded-xl bg-gradient-to-r from-primary to-accent flex items-center justify-center text-white hover:shadow-lg hover:shadow-primary/25 transition-all duration-300"
+                  >
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                     </svg>

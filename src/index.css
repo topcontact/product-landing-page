@@ -98,12 +98,14 @@
   background: rgba(255, 255, 255, 0.04);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.08);
+  box-sizing: border-box;
 }
 
 .glass-card-strong {
   background: rgba(255, 255, 255, 0.07);
   backdrop-filter: blur(30px);
   border: 1px solid rgba(255, 255, 255, 0.12);
+  box-sizing: border-box;
 }
 
 /* Glow effects */
